@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import userRoutes from './v1/routes/userRoutes';
+import { appConfig } from './config/config';
 
 class App {
   public app: Application;
@@ -12,7 +13,7 @@ class App {
     this.app = express();
     this.config();
     this.routes();
-    this.start(3000);
+    this.start(appConfig.port);
   }
 
   private config(): void {

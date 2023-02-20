@@ -1,7 +1,18 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
+import { generateAccessToken, generateRefreshToken } from '../services/authService';
 
 export class UserController {
+  public static async login(req: Request, res: Response): Promise<void> {
+    try {
+      const user = await UserService.getUserById('');
+      const accessToken = generateAccessToken("1");
+      const refreshToken = generateRefreshToken("1");
+      res.status(200).json({ success: true, data: { accessToken, refreshToken} });
+    } catch (err) {
+      res.status(500).json({ success: false, error: err });
+    }
+  }
   public static async getUsers(req: Request, res: Response): Promise<void> {
     try {
       const users = await UserService.getUsers();
