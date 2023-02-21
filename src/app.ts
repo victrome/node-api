@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import userRoutes from './v1/routes/userRoutes';
+import authRoutes from './v1/routes/authRoutes';
 import { appConfig } from './config/config';
 
 class App {
@@ -27,6 +28,7 @@ class App {
 
   private routes(): void {
     this.app.use('/api/users', userRoutes);
+    this.app.use('/api', authRoutes);
   }
   private start(port: number): void {
     this.app.listen(port, () => {

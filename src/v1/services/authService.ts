@@ -1,4 +1,3 @@
-import { User } from '../../config/xata';
 import { appConfig } from '../../config/config';
 import jwt from 'jsonwebtoken';
 
@@ -20,4 +19,25 @@ export const verifyAccessToken = (accessToken: string): any => {
 // Verify the refresh token
 export const verifyRefreshToken = (refreshToken: string): any => {
   return jwt.verify(refreshToken, appConfig.refreshSecretToken);
+};
+
+// Decode the refresh token
+export const decodeRefreshToken = (refreshToken: string): any => {
+  return jwt.decode(refreshToken);
+};
+
+// Decode the access token
+export const decodeAccessToken = (accessToken: string): any => {
+  return jwt.decode(accessToken);
+};
+
+// Verify the refresh token
+export const verifyUserTokens = (accessToken: string, refreshToken: string): boolean => {
+  try {
+    const accessDecoded = decodeAccessToken(accessToken);
+    const refreshDecoded = decodeRefreshToken(refreshToken);
+    return accessDecoded.userId === refreshDecoded.userId;
+  } catch (error) {
+    return false;
+  }
 };

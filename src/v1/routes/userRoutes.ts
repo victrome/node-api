@@ -6,7 +6,6 @@ const router = express.Router();
 
 //Anonymous Requests
 router.get('/', UserController.getUsers);
-router.post('/login', UserController.login);
 router.get('/:id', UserController.getUser);
 
 //Autheticated Requests
