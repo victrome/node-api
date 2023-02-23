@@ -4,18 +4,12 @@ import { getXataClient, User } from '../../config/xata';
 export class UserService {
   public static async authenticateUser(emailAddress: string, password: string): Promise<User> {
     const xata = getXataClient();
-    // Code to authenticate a user
+    const userCheck = await xata.db.user.filter({emailAddress, password}).getFirst();
     return new Promise<User>((resolve, reject) => {
-      console.log(emailAddress, password);
-      const userCheck = xata.db.user.filter({emailAddress: emailAddress, password: password}).getFirst();
-      console.log(userCheck);
-      const user: User = {
-        id: "1",
-        fullname: "John Doe",
-        emailAddress: ''
-      };
-      resolve(user);
+      resolve(userCheck as User);
     });
+    // Code to authenticate a user
+    
   }
   public static async getUsers(): Promise<User[]> {
     // Code to get all users from the database
